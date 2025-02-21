@@ -7,8 +7,11 @@ Algoritmo Campeonato
 	Dimensionar partidosEmpatados(6) // Partidos ganados por equipo
 	Dimensionar partidosPerdidos(6) // Partidos empatados por equipo
 	Dimensionar matriz(7,6) // Partidos perdidos por equipo
-	Definir cantidadDePartidosJugados Como Entero // Matriz para mostrar los resultados: 7 filas (estadísticas) y 6 columnas (equipos)
+	Definir cantidadDePartidosJugados, Puntos, EquipoGanador, EquipoPerdedor Como Entero // Matriz para mostrar los resultados: 7 filas (estadísticas) y 6 columnas (equipos)
 	cantidadDePartidosJugados <- 0
+	Puntos <- 0
+	EquipoPerdedor <- 0
+	EquipoGanador <- 0 
 	// Inicializamos las matrices para cada equipo
 	Para i<-1 Hasta 6 Con Paso 1 Hacer
 		golesFavor[i] <- 0
@@ -38,13 +41,16 @@ Algoritmo Campeonato
 				// Determinamos quién ganó, empató o perdió
 				Si (golesFavorEquipoI>golesFavorEquipoK) Entonces
 					partidosGanados[i] <- partidosGanados[i]+1
+					Puntos <- puntos + 3 
 					partidosPerdidos[k] <- partidosPerdidos[k]+1
 				SiNo
 					Si (golesFavorEquipoI<golesFavorEquipoK) Entonces
 						partidosGanados[k] <- partidosGanados[k]+1
+						puntos <- puntos + 3
 						partidosPerdidos[i] <- partidosPerdidos[i]+1
 					SiNo
 						partidosEmpatados[i] <- partidosEmpatados[i]+1
+						puntos <- puntos + 1
 						partidosEmpatados[k] <- partidosEmpatados[k]+1
 					FinSi
 				FinSi
@@ -62,6 +68,11 @@ Algoritmo Campeonato
 	FinPara
 	Escribir 'Equipo     PJ  PG  PE  PP  GF  GC'
 	Para i<-1 Hasta 6 Con Paso 1 Hacer
-		Escribir Equipo[i,1], ' ', matriz[1,i], ' ', matriz[2,i], ' ', matriz[3,i], ' ', matriz[4,i], ' ', matriz[5,i], ' ', matriz[6,i]
+		Escribir Equipo[i  ,  1], ' ', matriz[1,i], ' ', matriz[2,i], ' ', matriz[3,i], ' ', matriz[4,i], ' ', matriz[5,i], ' ', matriz[6,i]
 	FinPara
+	
+	// Mostrar quien gano y quien perdio
+	Mostrar 'puntos'
+	Mostrar 'El equipo Ganador es: '
+	Mostrar 'El equipo que bajo de categoria es: '
 FinAlgoritmo

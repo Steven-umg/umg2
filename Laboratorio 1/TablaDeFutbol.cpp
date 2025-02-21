@@ -1,22 +1,26 @@
+
+// INCLUSION DE LIBRERIAS
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <iomanip>  // Para usar setw y manipular el formato de salida
+#include <iomanip>
+
 using namespace std;
 
 void ejecutarCampeonato() {
-    // Definir las matrices para los datos de los equipos
-    string Equipo[6];  // Matriz para almacenar los nombres de los equipos
-    int golesContra[6] = {0};  // Goles en contra por equipo
-    int golesFavor[6] = {0};   // Goles a favor por equipo
-    int partidosGanados[6] = {0};  // Partidos ganados por equipo
-    int partidosEmpatados[6] = {0};  // Partidos empatados por equipo
-    int partidosPerdidos[6] = {0};  // Partidos perdidos por equipo
-    int matriz[7][6]; // Matriz para mostrar los resultados: 7 filas (estadísticas) y 6 columnas (equipos)
+    // DEFINIMOS LAS MATRICEZ DE DATOS
+    string Equipo[6];  // ALMACENAMOS LOS NOMBRES DE LOS EQUIPOS
+    int golesContra[6] = {0};  // TOTAL DE GOLES EN CONTRA POR EQUIPO
+    int golesFavor[6] = {0};   // TOTAL DE GOLES A FAVOR POR EQUIPO
+    int partidosGanados[6] = {0};  // PARTIDOS GANADOS POR EQUIPO
+    int partidosEmpatados[6] = {0};  // PARTIDOS EMPARTADOS POR EQUIPO
+    int partidosPerdidos[6] = {0};  // PARTIDOS PERDIDOS
+    int matriz[6][8]; // MATRIZ DE 6 FILAS Y 8 COLUMNAS
     int cantidadDePartidosJugados = 0;
-    int puntos[6] = {0};  // Para almacenar los puntos de cada equipo
+    int puntos[6] = {0};  //ALMACENAR LOS PUNTOS POR EQUIPO
 
-    // Inicializamos las matrices para cada equipo
+
+    // Inicializamos las estadisticas para cada equipo
     for (int i = 0; i < 6; ++i) {
         golesFavor[i] = 0;
         golesContra[i] = 0;
@@ -34,22 +38,27 @@ void ejecutarCampeonato() {
         cin >> Equipo[i];  // Almacenamos el nombre del equipo
     }
 
-    // Partidos todos contra todos
+    // Partidos
     srand(time(0)); // Inicializamos el generador de números aleatorios
-    for (int i = 0; i < 6; ++i) {
+    for  (int i = 0; i < 6; ++i) {
         for (int k = 0; k < 6; ++k) {
             if (i != k) {
+
+
                 // Generar goles aleatorios para el partido
+
                 int golesFavorEquipoI = rand() % 11;  // Goles aleatorios entre 0 y 10
                 int golesFavorEquipoK = rand() % 11;  // Goles aleatorios entre 0 y 10
 
                 // Acumulamos los goles de cada equipo
+
                 golesFavor[i] += golesFavorEquipoI;
                 golesContra[i] += golesFavorEquipoK;
                 golesFavor[k] += golesFavorEquipoK;
                 golesContra[k] += golesFavorEquipoI;
 
                 // Determinamos quién ganó, empató o perdió y calculamos los puntos
+
                 if (golesFavorEquipoI > golesFavorEquipoK) {
                     partidosGanados[i]++;
                     partidosPerdidos[k]++;
@@ -69,84 +78,36 @@ void ejecutarCampeonato() {
         }
     }
 
-    // Asignamos los resultados en la matriz para mostrar
+    // ASIGNAMOS LOS RESULTAODS EN LA MATRIZ PARA MOSTRALOS
     for (int i = 0; i < 6; ++i) {
-        // Equipos en la primera fila
-        matriz[0][i] = i + 1;
-
-        // Partidos jugados (PJ) en la segunda fila
-        matriz[1][i] = partidosGanados[i] + partidosEmpatados[i] + partidosPerdidos[i];
-
-        // Partidos ganados (PG) en la tercera fila
-        matriz[2][i] = partidosGanados[i];
-
-        // Partidos empatados (PE) en la cuarta fila
-        matriz[3][i] = partidosEmpatados[i];
-
-        // Partidos perdidos (PP) en la quinta fila
-        matriz[4][i] = partidosPerdidos[i];
-
-        // Goles a favor (GF) en la sexta fila
-        matriz[5][i] = golesFavor[i];
-
-        // Goles en contra (GC) en la séptima fila
-        matriz[6][i] = golesContra[i];
+        matriz[i][0] = i + 1;
+        matriz[i][1] = partidosGanados[i] + partidosEmpatados[i] + partidosPerdidos[i];
+        matriz[i][2] = partidosGanados[i];
+        matriz[i][3] = partidosEmpatados[i];
+        matriz[i][4] = partidosPerdidos[i];
+        matriz[i][5] = golesFavor[i];
+        matriz[i][6] = golesContra[i];
+        matriz[i][7] = puntos[i];
     }
 
-    // Mostrar los resultados en la matriz con separación entre filas y columnas
+    //MOSTRAMOS LOS RESULTADOS Y LA MATRIZ
+
     cout << "Tabla de Resultados:" << endl;
 
-    // Imprimir el encabezado de columnas con separación
-    cout << "+------------------+------------------+------------------+------------------+------------------+------------------+------------------+" << endl;
-    cout << "| Equipo           | ";
-    for (int i = 0; i < 6; ++i) {
-        cout << setw(16) << Equipo[i] << " | ";
-    }
-    cout << endl;
-    cout << "+------------------+------------------+------------------+------------------+------------------+------------------+------------------+" << endl;
+    // Imprimir el encabezado de filas con separación
+    cout << "+------------+----------+----------+----------+----------+----------+----------+----------+" << endl;
+    cout << "| Equipo     | PJ       | PG       | PE       | PP       | GF       | GC       | PT       |" << endl;
+    cout << "+------------+----------+----------+----------+----------+----------+----------+----------+" << endl;
 
-    // Imprimir las filas de estadísticas con separación
-    cout << "| PJ               | ";
+    // Imprimir los equipos y sus estadísticas
     for (int i = 0; i < 6; ++i) {
-        cout << setw(16) << matriz[1][i] << " | ";
+        cout << "| " << setw(10) << Equipo[i] << " | ";
+        for (int j = 1; j < 8; ++j) {
+            cout << setw(8) << matriz[i][j] << " | ";
+        }
+        cout << endl;
+        cout << "+------------+----------+----------+----------+----------+----------+----------+----------+" << endl;
     }
-    cout << endl;
-    cout << "+------------------+------------------+------------------+------------------+------------------+------------------+------------------+" << endl;
-
-    cout << "| PG               | ";
-    for (int i = 0; i < 6; ++i) {
-        cout << setw(16) << matriz[2][i] << " | ";
-    }
-    cout << endl;
-    cout << "+------------------+------------------+------------------+------------------+------------------+------------------+------------------+" << endl;
-
-    cout << "| PE               | ";
-    for (int i = 0; i < 6; ++i) {
-        cout << setw(16) << matriz[3][i] << " | ";
-    }
-    cout << endl;
-    cout << "+------------------+------------------+------------------+------------------+------------------+------------------+------------------+" << endl;
-
-    cout << "| PP               | ";
-    for (int i = 0; i < 6; ++i) {
-        cout << setw(16) << matriz[4][i] << " | ";
-    }
-    cout << endl;
-    cout << "+------------------+------------------+------------------+------------------+------------------+------------------+------------------+" << endl;
-
-    cout << "| GF               | ";
-    for (int i = 0; i < 6; ++i) {
-        cout << setw(16) << matriz[5][i] << " | ";
-    }
-    cout << endl;
-    cout << "+------------------+------------------+------------------+------------------+------------------+------------------+------------------+" << endl;
-
-    cout << "| GC               | ";
-    for (int i = 0; i < 6; ++i) {
-        cout << setw(16) << matriz[6][i] << " | ";
-    }
-    cout << endl;
-    cout << "+------------------+------------------+------------------+------------------+------------------+------------------+------------------+" << endl;
 
     // Determinar el campeón y el último lugar
     int maxPuntos = -1, minPuntos = 9999;
@@ -163,7 +124,7 @@ void ejecutarCampeonato() {
         }
     }
 
-    cout << "El campenn del campeonato es: " << Equipo[equipoCampeon] << " con " << maxPuntos << " puntos." << endl;
+    cout << "El campeon del campeonato es: " << Equipo[equipoCampeon] << " con " << maxPuntos << " puntos." << endl;
     cout << "El equipo que baja de categoria es: " << Equipo[equipoUltimo] << " con " << minPuntos << " puntos." << endl;
 }
 
@@ -174,7 +135,7 @@ int main() {
         // Ejecutar el campeonato
         ejecutarCampeonato();
 
-        // Preguntar si se desea reiniciar el programa
+        // Preguntar si se desea reiniciar el campeonato
         cout << "¿Quieres reiniciar el campeonato? (S/N): ";
         cin >> opcion;
 
@@ -184,4 +145,3 @@ int main() {
 
     return 0;
 }
-
