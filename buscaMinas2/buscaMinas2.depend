@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1743634959 source:c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\main.cpp
+	"Juego.h"
+	<iostream>
+
+1743634959 c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\include\juego.h
+	"Tablero.h"
+	"Configuracion.h"
+	<chrono>
+
+1743634959 c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\include\tablero.h
+	<vector>
+	<iostream>
+	"Celda.h"
+
+1743634959 c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\include\celda.h
+
+1743634959 c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\include\configuracion.h
+
+1743634959 source:c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\src\celda.cpp
+	"Celda.h"
+
+1743634959 source:c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\src\configuracion.cpp
+	"Configuracion.h"
+
+1743634959 source:c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\src\juego.cpp
+	"Juego.h"
+	<iostream>
+	<chrono>
+
+1743634959 source:c:\users\steve\onedrive\escritorio\programacion 1\buscaminas2\src\tablero.cpp
+	"Tablero.h"
+	<cstdlib>
+	<ctime>
+
