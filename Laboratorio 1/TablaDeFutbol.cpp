@@ -1,4 +1,3 @@
-
 // INCLUSION DE LIBRERIAS
 #include <iostream>
 #include <cstdlib>
